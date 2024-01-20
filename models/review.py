@@ -1,18 +1,29 @@
 #!/usr/bin/python3
-"""This is the review class"""
-from sqlalchemy.ext.declarative import declarative_base
+""" Review module for the HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+# SQLAlchemy modules
+from sqlalchemy import Column, String, ForeignKey, Integer, Float
 
 
 class Review(BaseModel, Base):
-    """This is the class for Review
+    """ Defines a class Review
+
     Attributes:
-        place_id: place id
-        user_id: user id
-        text: review description
+        __tablename__ (str): reviews
+
+        place_id (string): id of place.
+        user_id (string): id of user.
+        text (string): just a text.
     """
-    __tablename__ = "reviews"
+    __tablename__ = 'reviews'
+    place_id = Column(String(60), ForeignKey('places.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     text = Column(String(1024), nullable=False)
-    place_id = Column(String(60), ForeignKey("places.id"), nullable=False)
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+
+    def __init__(self, *args, **kwargs):
+        """initializes state"""
+        super().__init__(*args, **kwargs)
+
+    # place_id = ""
+    # user_id = ""
+    # text = ""
