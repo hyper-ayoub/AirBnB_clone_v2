@@ -15,10 +15,13 @@ class test_City(test_basemodel):
 
     def test_state_id(self):
         """ document documt """
-        new = self.value()
+        # Create an instance of City with state_id set to a string
+        new = self.value(state_id="some_state_id")
         self.assertEqual(type(new.state_id), str)
 
     def test_name(self):
         """ document documt """
-        new = self.value()
+        # Create an instance of City with name set to a string
+        new = self.value(name="some_name")
         self.assertEqual(type(new.name), str)
+
