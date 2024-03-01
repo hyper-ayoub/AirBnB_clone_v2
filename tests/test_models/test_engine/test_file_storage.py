@@ -1,16 +1,16 @@
 #!/usr/bin/python3
-""" Module for testing file storage"""
+""" file_storage """
 import unittest
+import os
 from models.base_model import BaseModel
 from models import storage
-import os
 
 
 @unittest.skipIf(
     os.getenv("HBNB_TYPE_STORAGE") == "db",
     "Test is not relevant for fileStorage"
 )
-class test_file_Storage(unittest.TestCase):
+class TestFileStorage(unittest.TestCase):
     """Class to test the file storage method"""
 
     def setUp(self):
@@ -69,12 +69,10 @@ class test_file_Storage(unittest.TestCase):
     def test_reload(self):
         """Storage file is successfully loaded to __objects"""
         new = BaseModel()
-        original_id = new.to_dict()["id"]
+        original_id = new.id
         new.save()
         storage.reload()
-        loaded = None
-        for obj in storage.all().values():
-            loaded = obj
+        loaded = storage.all()["BaseModel.{}".format(original_id)]
         self.assertEqual(original_id, loaded.id)
 
     def test_reload_empty(self):
@@ -106,10 +104,11 @@ class test_file_Storage(unittest.TestCase):
         """Key is properly formatted"""
         new = BaseModel()
         new.save()
-        _id = new.to_dict()["id"]
+        _id = new.id
         temp = None
         for key in storage.all().keys():
             temp = key
+            break  # Stop after the first key, assuming there is only one
         self.assertEqual(temp, "BaseModel" + "." + _id)
 
     def test_storage_var_created(self):
@@ -117,3 +116,7 @@ class test_file_Storage(unittest.TestCase):
         from models.engine.file_storage import FileStorage
 
         self.assertEqual(type(storage), FileStorage)
+
+
+if __name__ == '__main__':
+    unittest.main()
