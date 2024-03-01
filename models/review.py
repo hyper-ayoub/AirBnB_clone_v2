@@ -2,7 +2,7 @@
 """ Review module for the HBNB project """
 from models.base_model import BaseModel, Base
 # SQLAlchemy modules
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, Integer, Float
 
 
 class Review(BaseModel, Base):
@@ -24,10 +24,6 @@ class Review(BaseModel, Base):
         """initializes state"""
         super().__init__(*args, **kwargs)
 
-        # Set default values if needed
-        # if 'place_id' not in kwargs:
-        #     self.place_id = ""
-        # if 'user_id' not in kwargs:
-        #     self.user_id = ""
-        # if 'text' not in kwargs:
-        #     self.text = ""
+    # place_id = ""
+    # user_id = ""
+    # text = ""
