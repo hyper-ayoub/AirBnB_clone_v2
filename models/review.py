@@ -2,7 +2,7 @@
 """ Review module for the HBNB project """
 from models.base_model import BaseModel, Base
 # SQLAlchemy modules
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey
 
 
 class Review(BaseModel, Base):
@@ -21,9 +21,8 @@ class Review(BaseModel, Base):
     text = Column(String(1024), nullable=False)
 
     def __init__(self, *args, **kwargs):
-        """initializes state"""
+        """Initializes Review instance"""
         super().__init__(*args, **kwargs)
-
-    # place_id = ""
-    # user_id = ""
-    # text = ""
+        self.place_id = str(self.place_id)
+        self.user_id = str(self.user_id)
+        self.text = str(self.text)
