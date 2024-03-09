@@ -71,7 +71,9 @@ class TestFileStorage(unittest.TestCase):
         new = BaseModel()
         new.save()
         storage.reload()
-        loaded = storage.all()["BaseModel.{}".format(original_id)]
+        loaded = storage.all()['BaseModel.' + new.id]
+        for obj in storage.all().values():
+            loaded = obj
         self.assertEqual(new.to_dict()['id'], loaded.to_dict()['id'])
 
     def test_reload_empty(self):
