@@ -1,31 +1,28 @@
-from tests.test_models.test_base_model import test_basemodel
+from tests.test_models.test_base_model import TestBaseModel
 from models.review import Review
 import unittest
 
 
-class TestReview(test_basemodel):
+class TestReview(TestBaseModel):
     """ Test Review class """
 
-    def __init__(self, *args, **kwargs):
-        """ Initialize test Review class """
-        super().__init__(*args, **kwargs)
+    def setUp(self):
+        """ Set up for the tests """
+        self.model = Review
         self.name = "Review"
-        self.value = Review
+        self.value = Review(place_id="test_place_id", user_id="test_user_id", text="test_text")
 
     def test_place_id(self):
         """ Test place_id attribute """
-        new = self.value()
-        self.assertEqual(type(new.place_id), str)
+        self.assertEqual(type(self.value.place_id), str)
 
     def test_user_id(self):
         """ Test user_id attribute """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        self.assertEqual(type(self.value.user_id), str)
 
     def test_text(self):
         """ Test text attribute """
-        new = self.value()
-        self.assertEqual(type(new.text), str)
+        self.assertEqual(type(self.value.text), str)
 
 
 if __name__ == '__main__':
