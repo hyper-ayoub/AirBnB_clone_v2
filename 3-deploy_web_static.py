@@ -18,10 +18,15 @@ def do_pack():
         date = datetime.now().strftime("%Y%m%d%H%M%S")
         if isdir("versions") is False:
             local("mkdir versions")
+        
+        # Add my_index.html to the web_static folder
+        local("echo 'This is my custom index page' > web_static/my_index.html")
+        
         file_name = "versions/web_static_{}.tgz".format(date)
         local("tar -cvzf {} web_static".format(file_name))
         return file_name
-    except:
+    except Exception as e:
+        print(e)
         return None
 
 
@@ -42,7 +47,8 @@ def do_deploy(archive_path):
         run('rm -rf /data/web_static/current')
         run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
-    except:
+    except Exception as e:
+        print(e)
         return False
 
 
